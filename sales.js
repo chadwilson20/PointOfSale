@@ -1,5 +1,16 @@
 var runningTotal = 0.0;
 
+function calculateReceipt()
+{
+  var receiptSubtotal = getCookie("preTax");
+  receiptSubtotal = Number(receiptSubtotal);
+  var receiptTax = receiptSubtotal * 0.075;
+  var receiptTotal = receiptSubtotal + receiptTax;
+  document.getElementById("sub").innerHTML = asCurrency(receiptSubtotal);
+  document.getElementById("tax").innerHTML = asCurrency(receiptTax);
+  document.getElementById("tot").innerHTML = asCurrency(receiptTotal);
+}
+
 function addItem()
 {
   var newItem;
@@ -8,12 +19,12 @@ function addItem()
     alert("Enter price as a number");
   }
   else {
-    var numnewItem = Number(newItem);
-    runningTotal += numnewItem;
+    newItem = Number(newItem);
+    runningTotal = runningTotal + newItem;
     var dollars = asCurrency(runningTotal);
     document.getElementById("subtotal").innerHTML = dollars;
     document.getElementById("price").value = "";
-    document.cookie = "preTax=runningTotal";
+    setCookie("preTax", runningTotal, 1);
   }
 }
 
